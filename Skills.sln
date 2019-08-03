@@ -1,17 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skills.API", "Skills.API\Skills.API.csproj", "{72AECE89-B23E-46D9-AA10-6409D83A153B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skills", "Skills\Skills.csproj", "{72AECE89-B23E-46D9-AA10-6409D83A153B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skills.API.Tests", "Skills.API.Tests\Skills.API.Tests.csproj", "{BD648619-5B4F-4E2C-89A1-A267D4DE9FA1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skills.Domain", "Skills.Domain\Skills.Domain.csproj", "{33B65D55-9683-4249-93A9-E7A3CB0EC478}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skills.Domain.Tests", "Skills.Domain.Tests\Skills.Domain.Tests.csproj", "{0B33499D-04AE-4613-B445-F0A00E2AED77}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skills.Infrastructure", "Skills.Infrastructure\Skills.Infrastructure.csproj", "{F175E3F8-C17A-46FF-8647-A909F9AD6FBD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skills.Infrastructure.Tests", "Skills.Infrastructure.Tests\Skills.Infrastructure.Tests.csproj", "{3FBAF77E-12C2-4811-9909-3AD3F8D8FBD7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skills.Tests", "Skills.Tests\Skills.Tests.csproj", "{BD648619-5B4F-4E2C-89A1-A267D4DE9FA1}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4CEEE459-E641-407C-9ED7-CC162BC14A2C}"
 EndProject
@@ -29,22 +21,6 @@ Global
 		{BD648619-5B4F-4E2C-89A1-A267D4DE9FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD648619-5B4F-4E2C-89A1-A267D4DE9FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD648619-5B4F-4E2C-89A1-A267D4DE9FA1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33B65D55-9683-4249-93A9-E7A3CB0EC478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33B65D55-9683-4249-93A9-E7A3CB0EC478}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33B65D55-9683-4249-93A9-E7A3CB0EC478}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33B65D55-9683-4249-93A9-E7A3CB0EC478}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B33499D-04AE-4613-B445-F0A00E2AED77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B33499D-04AE-4613-B445-F0A00E2AED77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B33499D-04AE-4613-B445-F0A00E2AED77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B33499D-04AE-4613-B445-F0A00E2AED77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F175E3F8-C17A-46FF-8647-A909F9AD6FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F175E3F8-C17A-46FF-8647-A909F9AD6FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F175E3F8-C17A-46FF-8647-A909F9AD6FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F175E3F8-C17A-46FF-8647-A909F9AD6FBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FBAF77E-12C2-4811-9909-3AD3F8D8FBD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FBAF77E-12C2-4811-9909-3AD3F8D8FBD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FBAF77E-12C2-4811-9909-3AD3F8D8FBD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FBAF77E-12C2-4811-9909-3AD3F8D8FBD7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4CEEE459-E641-407C-9ED7-CC162BC14A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4CEEE459-E641-407C-9ED7-CC162BC14A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CEEE459-E641-407C-9ED7-CC162BC14A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
