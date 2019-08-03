@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+  skills:
+    image: mongo
+    restart: always
+    ports:
+      - "8001:27017"
+    volumes:
+      - ./data:/data/skills
+
+        ## Check:
+  # docker exec docker_skills_1 sh -c 'exec mongoexport -d SkillsDb -c skills --out /skills.json | ls -la /skills.json 2>&1' > ./dump/test2.json
+  ## Dump:
+  # docker exec docker_skills_1 sh -c 'exec mongoexport -d SkillsDb -c skills --out /skills.json --jsonArray | cat /skills.json 2>&1' > ./dump/test2.json
+
+# Working dump:
+# docker exec docker_skills_1 sh -c 'exec mongoexport -d SkillsDb -c skills --out /skills.json --jsonArray | cat /skills.json 2>&1' > ./collections/skills.json
+
+#  docker exec docker_skills_1 sh -c 'exec mongoexport -d SkillsDb -c skills --out /skills.json --jsonArray | cat /skills.json 2>&1' > ./collections/skills.json
+
+# docker exec docker_skills_1 sh -c 'exec mongoimport -d SkillsDb -c projects --type json --file /projects.json --jsonArray'
+  # --host skills --db SkillsDb --collection projects --type json --file /projects.json --jsonArray
+  
+  seeds:
+    build:
+      context: $PWD
+      dockerfile: Dockerfile

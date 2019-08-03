@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  skills_api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - MONGODB_HOST=mongodb://skills_data/Skills
+      - MONGODB_HOST_LOGGING=mongodb://skills_logging/SkillLogging
+    ports:
+      - "1111:80"    
