@@ -1,7 +1,7 @@
 using System;
 using MongoDB.Driver;
 using Newtonsoft.Json;
-using Skills.Adapter.MongoDb;
+using Skills.Infrastructure.Adapter.MongoDb;
 using Xunit;
 using Xunit.Abstractions;
 

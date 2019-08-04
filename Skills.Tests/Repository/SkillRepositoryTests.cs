@@ -1,10 +1,10 @@
 using System;
 using AutoMapper;
 using Moq;
-using Skills.Repository;
 using Skills.ValueObject;
-using Skills.Adapter;
-using Skills.Aggregate;
+using Skills.Domain.Aggregate;
+using Skills.Domain.Repository;
+using Skills.Infrastructure.Adapter;
 using Xunit;
 using Xunit.Abstractions;
 

@@ -1,3 +1,0 @@
-FROM mongo
-COPY *.json /
-CMD mongoimport --host skills --db Skills --collection skills --type json --file /skills.json --jsonArray

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using AccountDataExtractService.Middleware;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,11 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Serilog;
-using Skills.Middleware;
-using Skills.Repository;
-using Skills.Adapter;
-using Skills.Adapter.MongoDb;
-using Skills.Aggregate;
+using Skills.API.Middleware;
+using Skills.Domain.Aggregate;
+using Skills.Domain.Repository;
+using Skills.Infrastructure.Adapter;
+using Skills.Infrastructure.Adapter.MongoDb;
 
 namespace Skills
 {

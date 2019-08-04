@@ -4,11 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
-using Skills.Controllers;
-using Skills.Entity;
-using Skills.Repository;
-using Skills.Adapter;
-using Skills.Aggregate;
+using Skills.API.Controllers;
+using Skills.Domain.Aggregate;
+using Skills.Domain.Repository;
+using Skills.Infrastructure.Adapter;
 using Xunit;
 using Xunit.Abstractions;
 
