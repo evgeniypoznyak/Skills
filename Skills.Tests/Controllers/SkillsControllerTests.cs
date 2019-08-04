@@ -5,10 +5,10 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using Skills.Controllers;
-using Skills.Domain.Entity;
-using Skills.Domain.Repository;
-using Skills.Infrastructure.Adapter;
-using Skills.Infrastructure.Adapter.MongoDb;
+using Skills.Entity;
+using Skills.Repository;
+using Skills.Adapter;
+using Skills.Aggregate;
 using Xunit;
 using Xunit.Abstractions;
 

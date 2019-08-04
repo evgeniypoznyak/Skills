@@ -1,7 +1,7 @@
-using Skills.Domain.ValueObject;
+using Skills.ValueObject;
 using Xunit;
 
-namespace Skills.Domain.Tests.ValueObject
+namespace Skills.Tests.ValueObject
 {
     public class ProjectNameTests
     {

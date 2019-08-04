@@ -1,4 +1,4 @@
-namespace Skills.Domain.Entity
+namespace Skills.Entity
 {
     public interface IEntity
     {

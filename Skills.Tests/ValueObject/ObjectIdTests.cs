@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Skills.Domain.ValueObject;
+using Skills.ValueObject;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Skills.Domain.Tests.ValueObject
+namespace Skills.Tests.ValueObject
 {
     public class ObjectIdTests
     {

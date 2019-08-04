@@ -12,10 +12,10 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Serilog;
 using Skills.Middleware;
-using Skills.Domain.Entity;
-using Skills.Domain.Repository;
-using Skills.Infrastructure.Adapter;
-using Skills.Infrastructure.Adapter.MongoDb;
+using Skills.Repository;
+using Skills.Adapter;
+using Skills.Adapter.MongoDb;
+using Skills.Aggregate;
 
 namespace Skills
 {

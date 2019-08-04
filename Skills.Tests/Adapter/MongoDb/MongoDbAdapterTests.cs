@@ -1,11 +1,11 @@
 using System;
 using MongoDB.Driver;
 using Newtonsoft.Json;
-using Skills.Infrastructure.Adapter.MongoDb;
+using Skills.Adapter.MongoDb;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Skills.Infrastructure.Tests.Adapter.MongoDb
+namespace Skills.Tests.Adapter.MongoDb
 {
     public class MongoDbAdapterTests
     {

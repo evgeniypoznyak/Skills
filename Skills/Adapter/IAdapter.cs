@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Skills.Infrastructure.Adapter.MongoDb;
 
-namespace Skills.Infrastructure.Adapter
+namespace Skills.Adapter
 {
     public interface IAdapter
     {

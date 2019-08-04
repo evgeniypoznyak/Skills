@@ -1,6 +1,6 @@
 using System;
 
-namespace Skills.Domain.ValueObject
+namespace Skills.ValueObject
 {
     public class ProjectId
     {

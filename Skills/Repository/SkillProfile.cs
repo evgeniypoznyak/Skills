@@ -1,11 +1,11 @@
-using System;
 using System.Collections.Generic;
 using AutoMapper;
-using Skills.Domain.Entity;
-using Skills.Domain.ValueObject;
-using Skills.Infrastructure.Adapter;
+using Skills.Entity;
+using Skills.ValueObject;
+using Skills.Adapter;
+using Skills.Aggregate;
 
-namespace Skills.Domain.Repository
+namespace Skills.Repository
 {
     public class SkillProfile : Profile
     {

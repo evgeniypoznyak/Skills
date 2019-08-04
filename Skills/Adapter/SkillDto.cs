@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Skills.Infrastructure.Adapter
+namespace Skills.Adapter
 {
     public class SkillDto
     {

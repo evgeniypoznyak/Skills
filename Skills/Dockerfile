@@ -5,9 +5,9 @@ EXPOSE 80
 FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY Skills/Skills.csproj Skills/
-COPY Skills.Domain/Skills.Domain.csproj Skills.Domain/
-COPY Skills.Infrastructure/Skills.Infrastructure.csproj Skills.Infrastructure/
-COPY Skills.Infrastructure.Tests/Skills.Infrastructure.Tests.csproj Skills.Infrastructure.Tests/
+COPY Skills.Domain/Skills.csproj Skills.Domain/
+COPY Skills.Infrastructure/Skills.csproj Skills.Infrastructure/
+COPY Skills.Tests/Skills.Tests.csproj Skills.Tests/
 RUN dotnet restore Skills/Skills.csproj
 COPY . .
 WORKDIR /src/Skills

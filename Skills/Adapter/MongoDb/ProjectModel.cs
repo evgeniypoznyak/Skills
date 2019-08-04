@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Skills.Infrastructure.Adapter.MongoDb
+namespace Skills.Adapter.MongoDb
 {
     [BsonIgnoreExtraElements]
     [BsonNoId]

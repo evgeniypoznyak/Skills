@@ -1,6 +1,7 @@
-using Skills.Domain.ValueObject;
+using Skills.Entity;
+using Skills.ValueObject;
 
-namespace Skills.Domain.Entity
+namespace Skills.Aggregate
 {
     public class Skill : IEntity
     {

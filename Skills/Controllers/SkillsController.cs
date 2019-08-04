@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Skills.Domain.Entity;
-using Skills.Domain.Repository;
-using Skills.Infrastructure.Adapter;
+using Skills.Repository;
+using Skills.Adapter;
+using Skills.Aggregate;
 
 namespace Skills.Controllers
 {

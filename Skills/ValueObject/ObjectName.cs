@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Skills.Domain.ValueObject
+namespace Skills.ValueObject
 {
     public class ObjectName
     {

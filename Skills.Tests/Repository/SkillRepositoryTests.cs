@@ -1,14 +1,14 @@
 using System;
 using AutoMapper;
 using Moq;
-using Skills.Domain.Entity;
-using Skills.Domain.Repository;
-using Skills.Domain.ValueObject;
-using Skills.Infrastructure.Adapter;
+using Skills.Repository;
+using Skills.ValueObject;
+using Skills.Adapter;
+using Skills.Aggregate;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Skills.Domain.Tests.Repository
+namespace Skills.Tests.Repository
 {
     public class SkillRepositoryTests
     {

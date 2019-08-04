@@ -1,9 +1,9 @@
 using AutoMapper;
-using Skills.Domain.Entity;
-using Skills.Domain.ValueObject;
-using Skills.Infrastructure.Adapter;
+using Skills.Entity;
+using Skills.ValueObject;
+using Skills.Adapter;
 
-namespace Skills.Domain.Repository
+namespace Skills.Repository
 {
     public class ProjectProfile : Profile
     {

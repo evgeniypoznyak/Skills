@@ -1,6 +1,6 @@
-using Skills.Domain.ValueObject;
+using Skills.ValueObject;
 
-namespace Skills.Domain.Entity
+namespace Skills.Entity
 {
     public class Project : IEntity
     {
