@@ -55,16 +55,13 @@ namespace Skills
             SetupEnvironmentVariables();
 
             Log.Logger = new LoggerConfiguration()
-                .Destructure.ByTransforming<HttpRequest>(
-                    r => new {Body = r.Body, Headers = r.Headers, Method = r.Method})
+                .Destructure.ByTransforming<HttpRequest>(r => new {r.Body, r.Headers, r.Method})
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
-//                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
                 .WriteTo.MongoDBCapped(
                     Environment.GetEnvironmentVariable("MONGO_LOGGING"),
                     cappedMaxSizeMb: 50,
-                    cappedMaxDocuments: 300,
-                    collectionName: "log"
+                    cappedMaxDocuments: 300
                 )
                 .CreateLogger();
 
@@ -82,25 +79,11 @@ namespace Skills
 
         private void SetupEnvironmentVariables()
         {
-            if (Environment.GetEnvironmentVariable("MONGO_LOGGING") == null)
-            {
-                Environment.SetEnvironmentVariable("MONGO_LOGGING", Configuration["MongoDBCapped:Host"]);
-            }
-
-            if (Environment.GetEnvironmentVariable("MONGO_SKILLS_DB") == null)
-            {
-                Environment.SetEnvironmentVariable("MONGO_SKILLS_DB", Configuration["MongoDb:Host"]);
-            }
-
-            if (Environment.GetEnvironmentVariable("MONGO_SKILLS_DB_NAME") == null)
-            {
-                Environment.SetEnvironmentVariable("MONGO_SKILLS_DB_NAME", Configuration["MongoDb:DatabaseName"]);
-            }
-
-            if (Environment.GetEnvironmentVariable("MONGO_SKILLS_COLLECTION") == null)
-            {
-                Environment.SetEnvironmentVariable("MONGO_SKILLS_COLLECTION", Configuration["MongoDb:CollectionName"]);
-            }
+            if (Environment.GetEnvironmentVariable("IN_DOCKER") == "yes") return;
+            Environment.SetEnvironmentVariable("MONGO_LOGGING", Configuration["MongoDBCapped:Host"]);
+            Environment.SetEnvironmentVariable("MONGO_SKILLS_DB", Configuration["MongoDb:Host"]);
+            Environment.SetEnvironmentVariable("MONGO_SKILLS_DB_NAME", Configuration["MongoDb:DatabaseName"]);
+            Environment.SetEnvironmentVariable("MONGO_SKILLS_COLLECTION", Configuration["MongoDb:CollectionName"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
