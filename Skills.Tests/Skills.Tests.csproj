@@ -5,7 +5,7 @@
 
         <IsPackable>false</IsPackable>
 
-        <RootNamespace>Skills.API.Tests</RootNamespace>
+        <RootNamespace>Skills.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

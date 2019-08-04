@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Skills.API": {
+    "Skills": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "skills",

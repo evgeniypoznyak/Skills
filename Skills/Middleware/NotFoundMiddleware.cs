@@ -4,7 +4,7 @@ using AccountDataExtractService.Middleware;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace Skills.API.Middleware
+namespace Skills.Middleware
 {
     public static class NotFoundMiddleware
     {

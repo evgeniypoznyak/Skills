@@ -6,7 +6,7 @@
     <ProjectGuid>{4CEEE459-E641-407C-9ED7-CC162BC14A2C}</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
     <DockerServiceUrl>http://localhost:{ServicePort}/skills</DockerServiceUrl>
-    <DockerServiceName>skills.api</DockerServiceName>
+    <DockerServiceName>Skills</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include=".gitignore" />

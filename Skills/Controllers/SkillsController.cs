@@ -5,7 +5,7 @@ using Skills.Domain.Entity;
 using Skills.Domain.Repository;
 using Skills.Infrastructure.Adapter;
 
-namespace Skills.API.Controllers
+namespace Skills.Controllers
 {
     [Route("/[controller]")]
     [ApiController]

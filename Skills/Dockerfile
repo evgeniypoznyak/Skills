@@ -4,19 +4,19 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
-COPY Skills.API/Skills.API.csproj Skills.API/
+COPY Skills/Skills.csproj Skills/
 COPY Skills.Domain/Skills.Domain.csproj Skills.Domain/
 COPY Skills.Infrastructure/Skills.Infrastructure.csproj Skills.Infrastructure/
 COPY Skills.Infrastructure.Tests/Skills.Infrastructure.Tests.csproj Skills.Infrastructure.Tests/
-RUN dotnet restore Skills.API/Skills.API.csproj
+RUN dotnet restore Skills/Skills.csproj
 COPY . .
-WORKDIR /src/Skills.API
-RUN dotnet build Skills.API.csproj -c Release -o /app
+WORKDIR /src/Skills
+RUN dotnet build Skills.csproj -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish Skills.API.csproj -c Release -o /app
+RUN dotnet publish Skills.csproj -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "Skills.API.dll"]
+ENTRYPOINT ["dotnet", "Skills.dll"]

@@ -2,7 +2,6 @@
 using System.IO;
 using AccountDataExtractService.Middleware;
 using AutoMapper;
-using Castle.Core.Internal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,13 +11,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Serilog;
-using Skills.API.Middleware;
+using Skills.Middleware;
 using Skills.Domain.Entity;
 using Skills.Domain.Repository;
 using Skills.Infrastructure.Adapter;
 using Skills.Infrastructure.Adapter.MongoDb;
 
-namespace Skills.API
+namespace Skills
 {
     public class Startup
     {
@@ -55,7 +54,7 @@ namespace Skills.API
         public void ConfigureServices(IServiceCollection services)
         {
             SetupEnvironmentVariables();
-            
+
             Log.Logger = new LoggerConfiguration()
                 .Destructure.ByTransforming<HttpRequest>(
                     r => new {Body = r.Body, Headers = r.Headers, Method = r.Method})
@@ -69,39 +68,37 @@ namespace Skills.API
                     collectionName: "log"
                 )
                 .CreateLogger();
-            
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new SkillProfile());
-            });
+
+            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new SkillProfile()); });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services
-                .AddTransient<IMongoClient>(c => new MongoClient(Environment.GetEnvironmentVariable("MONGO_SKILLS_DB")));
+                .AddTransient<IMongoClient>(c =>
+                    new MongoClient(Environment.GetEnvironmentVariable("MONGO_SKILLS_DB")));
             services.AddSingleton<IAdapter, MongoDbAdapter>();
             services.AddSingleton<IRepository<Skill>, SkillsRepository>();
         }
 
         private void SetupEnvironmentVariables()
         {
-            if (Environment.GetEnvironmentVariable("MONGO_LOGGING").IsNullOrEmpty())
+            if (Environment.GetEnvironmentVariable("MONGO_LOGGING") == null)
             {
                 Environment.SetEnvironmentVariable("MONGO_LOGGING", Configuration["MongoDBCapped:Host"]);
             }
 
-            if (Environment.GetEnvironmentVariable("MONGO_SKILLS_DB").IsNullOrEmpty())
+            if (Environment.GetEnvironmentVariable("MONGO_SKILLS_DB") == null)
             {
                 Environment.SetEnvironmentVariable("MONGO_SKILLS_DB", Configuration["MongoDb:Host"]);
             }
 
-            if (Environment.GetEnvironmentVariable("MONGO_SKILLS_DB_NAME").IsNullOrEmpty())
+            if (Environment.GetEnvironmentVariable("MONGO_SKILLS_DB_NAME") == null)
             {
                 Environment.SetEnvironmentVariable("MONGO_SKILLS_DB_NAME", Configuration["MongoDb:DatabaseName"]);
             }
 
-            if (Environment.GetEnvironmentVariable("MONGO_SKILLS_COLLECTION").IsNullOrEmpty())
+            if (Environment.GetEnvironmentVariable("MONGO_SKILLS_COLLECTION") == null)
             {
                 Environment.SetEnvironmentVariable("MONGO_SKILLS_COLLECTION", Configuration["MongoDb:CollectionName"]);
             }

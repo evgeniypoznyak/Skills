@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
 
-namespace Skills.API
+namespace Skills
 {
     public class Program
     {

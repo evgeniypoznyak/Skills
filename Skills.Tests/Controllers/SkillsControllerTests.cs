@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
-using Skills.API.Controllers;
+using Skills.Controllers;
 using Skills.Domain.Entity;
 using Skills.Domain.Repository;
 using Skills.Infrastructure.Adapter;
@@ -12,7 +12,7 @@ using Skills.Infrastructure.Adapter.MongoDb;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Skills.API.Tests.Controllers
+namespace Skills.Tests.Controllers
 {
     public class SkillsControllerTests
     {
