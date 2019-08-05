@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Skills.ValueObject;
 using Skills.Domain.Aggregate;
@@ -16,15 +17,17 @@ namespace Skills.Tests.Repository
         private Mock<IAdapter> _mockDynamoDb;
         private Mock<IMapper> _mapper;
         private SkillsRepository _skillsRepository;
+        private Mock<ILogger<SkillsRepository>> _mockLogger;
 
         public SkillRepositoryTests(ITestOutputHelper output)
         {
             _output = output;
             _mockDynamoDb = new Mock<IAdapter>();
             _mapper = new Mock<IMapper>();
+            _mockLogger = new Mock<ILogger<SkillsRepository>>();
             _mapper.Setup(x => x.Map<SkillDto, Skill>(It.IsAny<SkillDto>()))
                 .Returns(It.IsAny<Skill>());
-            _skillsRepository = new SkillsRepository(_mockDynamoDb.Object, _mapper.Object);
+            _skillsRepository = new SkillsRepository(_mockDynamoDb.Object, _mapper.Object, _mockLogger.Object);
         }
         
         [Fact]

@@ -31,7 +31,7 @@ namespace Skills.API.Controllers
         public JsonResult Find()
         {
             var result =_adapter.FindAll();
-//            _logger.LogInformation("Fetched results: {@result}", result);
+          _logger.LogInformation("Fetched results: {@result}", result);
             return new JsonResult(JsonConvert.DeserializeObject<object>(JsonConvert.SerializeObject(result)));
         }
         // POST /skills
@@ -39,6 +39,7 @@ namespace Skills.API.Controllers
         public JsonResult Save([FromBody] SkillDto content)
         {
             var result = _skillRepository.Save(content);
+            _logger.LogInformation("Saved results: {@result}", result);
             return new JsonResult(result);
         }
         

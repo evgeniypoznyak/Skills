@@ -1,5 +1,6 @@
 using System.Net;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Skills.Domain.Aggregate;
 using Skills.Infrastructure.Adapter;
 using Skills.ValueObject;
@@ -10,11 +11,13 @@ namespace Skills.Domain.Repository
     {
         private readonly IAdapter _adapter;
         private readonly IMapper _mapper;
+        private readonly ILogger<SkillsRepository> _logger;
 
-        public SkillsRepository(IAdapter adapter, IMapper mapper)
+        public SkillsRepository(IAdapter adapter, IMapper mapper,  ILogger<SkillsRepository> logger)
         {
             _adapter = adapter;
             _mapper = mapper;
+            _logger = logger;
         }
 
 //        public IEnumerable<Skill> FindAll()

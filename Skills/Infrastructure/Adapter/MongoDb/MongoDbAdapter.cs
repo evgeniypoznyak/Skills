@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
@@ -8,13 +9,15 @@ namespace Skills.Infrastructure.Adapter.MongoDb
 {
     public class MongoDbAdapter : IAdapter
     {
+        private readonly ILogger<MongoDbAdapter> _logger;
         private readonly string _databaseName = Environment.GetEnvironmentVariable("MONGO_SKILLS_DB_NAME");
         private readonly string _collectionName = Environment.GetEnvironmentVariable("MONGO_SKILLS_COLLECTION");
         private IMongoDatabase _db;
         private IMongoCollection<SkillModel> _collection;
 
-        public MongoDbAdapter(IMongoClient mongoClient)
+        public MongoDbAdapter(IMongoClient mongoClient,  ILogger<MongoDbAdapter> logger)
         {
+            _logger = logger;
             _db = mongoClient.GetDatabase(_databaseName);
             _collection = _db.GetCollection<SkillModel>(_collectionName);
         }
