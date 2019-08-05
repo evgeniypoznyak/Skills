@@ -1,4 +1,5 @@
 using AutoMapper;
+using Skills.Domain.Dto;
 using Skills.Domain.Entity;
 using Skills.Infrastructure.Adapter;
 using Skills.ValueObject;

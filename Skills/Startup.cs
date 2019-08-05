@@ -49,7 +49,6 @@ namespace Skills
 
         public IConfiguration Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             SetupEnvironmentVariables();
@@ -65,7 +64,10 @@ namespace Skills
                 )
                 .CreateLogger();
 
-            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new SkillProfile()); });
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+//                mc.AddProfile(new SkillModelToDtoProfile());
+            });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
@@ -86,7 +88,6 @@ namespace Skills
             Environment.SetEnvironmentVariable("MONGO_SKILLS_COLLECTION", Configuration["MongoDb:CollectionName"]);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -95,11 +96,9 @@ namespace Skills
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-//            app.UseHttpsRedirection();
+            
             app.UseMiddleware<ExceptionHandlingMiddleware>(_logger);
             app.UseMvc();
             app.Run(async context => await NotFoundMiddleware.Process(context));

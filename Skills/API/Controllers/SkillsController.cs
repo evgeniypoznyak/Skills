@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Skills.Domain.Aggregate;
+using Skills.Domain.Dto;
 using Skills.Domain.Repository;
 using Skills.Infrastructure.Adapter;
 
@@ -15,33 +16,33 @@ namespace Skills.API.Controllers
         private readonly IAdapter _adapter;
         private readonly ILogger<SkillsController> _logger;
 
-        public SkillsController( 
+        public SkillsController(
             IRepository<Skill> skillRepository,
             IAdapter adapter,
             ILogger<SkillsController> logger
-            )
+        )
         {
             _skillRepository = skillRepository;
             _adapter = adapter;
             _logger = logger;
         }
-        
+
         // GET /skills
         [HttpGet]
-        public JsonResult Find()
+        public async Task<ActionResult<SkillListDto>> Find()
         {
-            var result =_adapter.FindAll();
-          _logger.LogInformation("Fetched results: {@result}", result);
-            return new JsonResult(JsonConvert.DeserializeObject<object>(JsonConvert.SerializeObject(result)));
+            var result = await _adapter.FindAll();
+            _logger.LogInformation("Fetched results: {@result}", result);
+            return Ok(result);
         }
-        // POST /skills
-        [HttpPost]
-        public JsonResult Save([FromBody] SkillDto content)
-        {
-            var result = _skillRepository.Save(content);
-            _logger.LogInformation("Saved results: {@result}", result);
-            return new JsonResult(result);
-        }
-        
+
+//        // POST /skills
+//        [HttpPost]
+//        public async Task<ActionResult<SkillList>> Save([FromBody] SkillDto content)
+//        {
+//            var result = _skillRepository.Save(content);
+//            _logger.LogInformation("Saved results: {@result}", result);
+//            return new JsonResult(result);
+//        }
     }
 }

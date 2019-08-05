@@ -2,8 +2,8 @@ using System.Net;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Skills.Domain.Aggregate;
+using Skills.Domain.Dto;
 using Skills.Infrastructure.Adapter;
-using Skills.ValueObject;
 
 namespace Skills.Domain.Repository
 {
@@ -20,30 +20,14 @@ namespace Skills.Domain.Repository
             _logger = logger;
         }
 
-//        public IEnumerable<Skill> FindAll()
-//        {
-//            var listOfSkillsDto = _adapter.FindAll();
-//            var collection = new List<Skill>();
-//            foreach (var skillDto in listOfSkillsDto)
-//            {
-//                collection.Add(_mapper.Map<SkillDto, Skill>(skillDto));
-//            }
-//            return collection;
-//        }
-        
-        public Skill MapSkillDtoToEntity(SkillDto skillDto)
+        public Skill Find(string id)
         {
-            return _mapper.Map<SkillDto, Skill>(skillDto);
-        }
-
-        public Skill Find(ObjectId id)
-        {
-            return new Skill();
+            throw new System.NotImplementedException();
         }
 
         public HttpStatusCode Save(SkillDto skillDto)
         {
-            return HttpStatusCode.Created;
+            throw new System.NotImplementedException();
         }
     }
 }

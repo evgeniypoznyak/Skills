@@ -1,9 +1,10 @@
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using Skills.Domain.Dto;
 
 namespace Skills.Infrastructure.Adapter
 {
     public interface IAdapter
     {
-        List<object> FindAll();
+        Task<SkillListDto> FindAll();
     }
 }

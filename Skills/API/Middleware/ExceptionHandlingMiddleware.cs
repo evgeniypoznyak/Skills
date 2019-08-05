@@ -10,9 +10,9 @@ namespace Skills.API.Middleware
     public class ExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-        private ILogger<ExceptionHandlingMiddleware> _logger;
+        private readonly ILogger _logger;
 
-        public ExceptionHandlingMiddleware(RequestDelegate next,  ILogger<ExceptionHandlingMiddleware> logger)
+        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger logger)
         {
             _logger = logger;
             _next = next;
