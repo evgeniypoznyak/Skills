@@ -70,7 +70,7 @@ namespace Skills
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-
+            services.AddHealthChecks();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services
                 .AddTransient<IMongoClient>(c =>
@@ -101,6 +101,7 @@ namespace Skills
             
             app.UseMiddleware<ExceptionHandlingMiddleware>(_logger);
             app.UseMvc();
+            app.UseHealthChecks("/health");
             app.Run(async context => await NotFoundMiddleware.Process(context));
         }
     }
