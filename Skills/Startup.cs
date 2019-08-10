@@ -15,6 +15,7 @@ using Skills.Domain.Aggregate;
 using Skills.Domain.Repository;
 using Skills.Infrastructure.Adapter;
 using Skills.Infrastructure.Adapter.MongoDb;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Skills
 {
@@ -77,6 +78,35 @@ namespace Skills
                     new MongoClient(Environment.GetEnvironmentVariable("MONGO_SKILLS_DB")));
             services.AddSingleton<IAdapter, MongoDbAdapter>();
             services.AddSingleton<IRepository<Skill>, SkillsRepository>();
+            //Swagger Configuration Setup
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "Skills API MicroService",
+                    Version = "v1",
+                    Description =
+                        "This is the Skills API to pull skills from data service and to be used by NodeJS API Gateway.",
+                    Contact = new Contact{Email = "evgeniy.poznyak@gmail.com"}
+                });
+
+                c.SwaggerDoc("authorize", new Info
+                {
+                    Title = "Skills-API-MicroService",
+                    Version = "v1",
+                    Description = "This is the evgeniy poznyak skill API.",
+                    Contact = new Contact{Email = "evgeniy.poznyak@gmail.com"},
+                });
+
+                c.SwaggerDoc("health", new Info
+                {
+                    Title = "Skills-API-MicroService",
+                    Version = "v1",
+                    Description = "This is the Skills Health API.",
+                    Contact = new Contact{Email = "evgeniy.poznyak@gmail.com"},
+                });
+//                c.IncludeXmlComments(Path.Combine(System.AppContext.BaseDirectory, "SkillApi.xml"));
+            });
         }
 
         private void SetupEnvironmentVariables()
@@ -98,10 +128,12 @@ namespace Skills
             {
                 app.UseHsts();
             }
-            
+
             app.UseMiddleware<ExceptionHandlingMiddleware>(_logger);
             app.UseMvc();
             app.UseHealthChecks("/health");
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skill Microservice API V1"); });
             app.Run(async context => await NotFoundMiddleware.Process(context));
         }
     }
