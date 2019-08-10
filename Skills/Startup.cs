@@ -72,7 +72,11 @@ namespace Skills
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddHealthChecks();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .AddJsonOptions(options => options.UseCamelCasing(true))
+                .AddJsonOptions(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services
                 .AddTransient<IMongoClient>(c =>
                     new MongoClient(Environment.GetEnvironmentVariable("MONGO_SKILLS_DB")));
@@ -87,7 +91,7 @@ namespace Skills
                     Version = "v1",
                     Description =
                         "This is the Skills API to pull skills from data service and to be used by NodeJS API Gateway.",
-                    Contact = new Contact{Email = "evgeniy.poznyak@gmail.com"}
+                    Contact = new Contact {Email = "evgeniy.poznyak@gmail.com"}
                 });
 
                 c.SwaggerDoc("authorize", new Info
@@ -95,7 +99,7 @@ namespace Skills
                     Title = "Skills-API-MicroService",
                     Version = "v1",
                     Description = "This is the evgeniy poznyak skill API.",
-                    Contact = new Contact{Email = "evgeniy.poznyak@gmail.com"},
+                    Contact = new Contact {Email = "evgeniy.poznyak@gmail.com"},
                 });
 
                 c.SwaggerDoc("health", new Info
@@ -103,7 +107,7 @@ namespace Skills
                     Title = "Skills-API-MicroService",
                     Version = "v1",
                     Description = "This is the Skills Health API.",
-                    Contact = new Contact{Email = "evgeniy.poznyak@gmail.com"},
+                    Contact = new Contact {Email = "evgeniy.poznyak@gmail.com"},
                 });
 //                c.IncludeXmlComments(Path.Combine(System.AppContext.BaseDirectory, "SkillApi.xml"));
             });
@@ -133,7 +137,10 @@ namespace Skills
             app.UseMvc();
             app.UseHealthChecks("/health");
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skill Microservice API V1"); });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skill Microservice API V1");
+            });
             app.Run(async context => await NotFoundMiddleware.Process(context));
         }
     }
