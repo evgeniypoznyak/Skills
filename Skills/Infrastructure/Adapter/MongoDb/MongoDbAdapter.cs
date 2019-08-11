@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
@@ -37,12 +38,22 @@ namespace Skills.Infrastructure.Adapter.MongoDb
             await _collection.InsertOneAsync(skillDto);
             return skillDto;
         }
-        
+
         public async Task<SkillDto> Update(SkillDto skillDto)
         {
             _logger.LogInformation("MongoDbAdapter: Processing request from repository");
             await _collection.ReplaceOneAsync(_ => _.Id == skillDto.Id, skillDto);
             return skillDto;
+        }
+
+        public async Task<HttpStatusCode> Delete(string skillId)
+        {
+            _logger.LogInformation("MongoDbAdapter: Processing request from repository");
+            var deleteOneAsync = await _collection.DeleteOneAsync(_ => _.Id == skillId);
+            if (deleteOneAsync.DeletedCount == 0)
+                throw new Exception($"Unable to delete data for provided skill id: {skillId}");
+            _logger.LogInformation("Skill was successfully deleted");
+            return HttpStatusCode.NoContent;
         }
     }
 }

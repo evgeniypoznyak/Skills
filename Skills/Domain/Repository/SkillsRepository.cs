@@ -1,3 +1,4 @@
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -32,6 +33,11 @@ namespace Skills.Domain.Repository
         public async Task<SkillDto> Update(SkillDto skillDto)
         {
             return await _adapter.Update(skillDto);
+        }
+        
+        public async Task<HttpStatusCode> Delete(string skillId)
+        {
+            return await _adapter.Delete(skillId);
         }
     }
 }

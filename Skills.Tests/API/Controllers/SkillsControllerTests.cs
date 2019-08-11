@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -40,7 +41,7 @@ namespace Skills.Tests.API.Controllers
             Assert.IsAssignableFrom<ActionResult<SkillListDto>>(actual);
             Assert.Contains(expected, JsonConvert.SerializeObject(actual));
         }
-        
+
         [Fact]
         public async Task Save_WhenCalled_ShouldWork()
         {
@@ -51,8 +52,8 @@ namespace Skills.Tests.API.Controllers
             var actual = await controller.Save(skillDto);
             Assert.IsAssignableFrom<ActionResult<SkillDto>>(actual);
             Assert.Contains(expected, JsonConvert.SerializeObject(actual));
-        } 
-        
+        }
+
         [Fact]
         public async Task Update_WhenCalled_ShouldWork()
         {
@@ -63,6 +64,20 @@ namespace Skills.Tests.API.Controllers
             var actual = await controller.Update(skillDto);
             Assert.IsAssignableFrom<ActionResult<SkillDto>>(actual);
             Assert.Contains(expected, JsonConvert.SerializeObject(actual));
+        }
+
+        [Fact]
+        public async Task Delete_WhenCalled_ShouldWork()
+        {
+            _mockRepository.Setup(
+                _ => _.Delete(It.IsAny<string>())).Returns(Task.FromResult(HttpStatusCode.NoContent)
+            );
+            var controller = new SkillsController(_mockRepository.Object, _mockAdapter.Object, _mockLogger.Object);
+            var actual = await controller.Delete("");
+            Assert.IsAssignableFrom<ActionResult<HttpStatusCode>>(actual);
+            Assert.Contains(
+                ((int) HttpStatusCode.NoContent).ToString(), JsonConvert.SerializeObject(actual)
+            );
         }
     }
 }

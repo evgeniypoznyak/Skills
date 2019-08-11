@@ -1,3 +1,4 @@
+using System.Net;
 using System.Threading.Tasks;
 using Skills.Domain.Dto;
 
@@ -8,5 +9,6 @@ namespace Skills.Infrastructure.Adapter
         Task<SkillListDto> FindAll();
         Task<T> Save(T skillDto);
         Task<T> Update(T skillDto);
+        Task<HttpStatusCode> Delete(string skillId);
     }
 }

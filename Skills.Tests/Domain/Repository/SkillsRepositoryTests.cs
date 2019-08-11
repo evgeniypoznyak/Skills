@@ -1,7 +1,10 @@
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Newtonsoft.Json;
 using Skills.Domain.Dto;
 using Skills.Domain.Repository;
 using Skills.Infrastructure.Adapter;
@@ -24,7 +27,7 @@ namespace Skills.Tests.Domain.Repository
             _mockLogger = new Mock<ILogger<SkillsRepository>>();
             _mockMapper = new Mock<IMapper>();
         }
-        
+
         [Fact]
         public async Task Save_WhenCalled_ShouldWork()
         {
@@ -35,8 +38,8 @@ namespace Skills.Tests.Domain.Repository
             var actual = await repository.Save(skillDto);
             Assert.IsAssignableFrom<SkillDto>(actual);
             Assert.Equal(expected, actual.Id);
-        }     
-        
+        }
+
         [Fact]
         public async Task Update_WhenCalled_ShouldWork()
         {
@@ -47,6 +50,20 @@ namespace Skills.Tests.Domain.Repository
             var actual = await repository.Update(skillDto);
             Assert.IsAssignableFrom<SkillDto>(actual);
             Assert.Equal(expected, actual.Id);
+        }
+
+        [Fact]
+        public async Task Delete_WhenCalled_ShouldWork()
+        {
+            _mockAdapter.Setup(
+                _ => _.Delete(It.IsAny<string>())).Returns(Task.FromResult(HttpStatusCode.NoContent)
+            );
+            var repository = new SkillsRepository(_mockAdapter.Object, _mockMapper.Object, _mockLogger.Object);
+            var actual = await repository.Delete("");
+            Assert.IsAssignableFrom<HttpStatusCode>(actual);
+            Assert.Contains(
+                ((int) HttpStatusCode.NoContent).ToString(), JsonConvert.SerializeObject(actual)
+            );
         }
     }
 }

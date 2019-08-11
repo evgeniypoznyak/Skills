@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Skills.Domain.Dto;
@@ -39,20 +40,30 @@ namespace Skills.API.Controllers
         [HttpPost]
         public async Task<ActionResult<SkillDto>> Save([FromBody] SkillDto content)
         {
-            _logger.LogInformation("SkillsController: Preceding request");
+            _logger.LogInformation("SkillsController: Preceding save request");
             var result = await _skillRepository.Save(content);
             _logger.LogInformation("SkillsController: Saved results");
-            return new JsonResult(result);
+            return Ok(result);
         }
         
         // PATCH /skills
         [HttpPatch]
         public async Task<ActionResult<SkillDto>> Update([FromBody] SkillDto content)
         {
-            _logger.LogInformation("SkillsController: Preceding request");
+            _logger.LogInformation("SkillsController: Preceding update request");
             var result = await _skillRepository.Update(content);
             _logger.LogInformation("SkillsController: Updated results");
-            return new JsonResult(result);
+            return Ok(result);
+        }
+        
+        // DELETE /skills
+        [HttpDelete("{skillId}")]
+        public async Task<ActionResult<HttpStatusCode>> Delete(string skillId)
+        {
+            _logger.LogInformation("SkillsController: Preceding delete request");
+            var result = await _skillRepository.Delete(skillId);
+            _logger.LogInformation("SkillsController: Deleted results");
+            return Ok(result);
         }
     }
 }
