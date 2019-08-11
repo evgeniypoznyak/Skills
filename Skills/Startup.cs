@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Serilog;
 using Skills.API.Middleware;
-using Skills.Domain.Aggregate;
+using Skills.Domain.Dto;
 using Skills.Domain.Repository;
 using Skills.Infrastructure.Adapter;
 using Skills.Infrastructure.Adapter.MongoDb;
@@ -80,8 +80,8 @@ namespace Skills
             services
                 .AddTransient<IMongoClient>(c =>
                     new MongoClient(Environment.GetEnvironmentVariable("MONGO_SKILLS_DB")));
-            services.AddSingleton<IAdapter, MongoDbAdapter>();
-            services.AddSingleton<IRepository<Skill>, SkillsRepository>();
+            services.AddSingleton<IAdapter<SkillDto>, MongoDbAdapter>();
+            services.AddSingleton<IRepository<SkillDto>, SkillsRepository>();
             //Swagger Configuration Setup
             services.AddSwaggerGen(c =>
             {
@@ -93,7 +93,6 @@ namespace Skills
                         "This is the Skills API to pull skills from data service and to be used by NodeJS API Gateway.",
                     Contact = new Contact {Email = "evgeniy.poznyak@gmail.com"}
                 });
-
                 c.SwaggerDoc("authorize", new Info
                 {
                     Title = "Skills-API-MicroService",
@@ -101,7 +100,6 @@ namespace Skills
                     Description = "This is the evgeniy poznyak skill API.",
                     Contact = new Contact {Email = "evgeniy.poznyak@gmail.com"},
                 });
-
                 c.SwaggerDoc("health", new Info
                 {
                     Title = "Skills-API-MicroService",

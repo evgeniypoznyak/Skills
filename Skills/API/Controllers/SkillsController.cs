@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Skills.Domain.Aggregate;
 using Skills.Domain.Dto;
 using Skills.Domain.Repository;
 using Skills.Infrastructure.Adapter;
@@ -12,13 +11,13 @@ namespace Skills.API.Controllers
     [ApiController]
     public class SkillsController : ControllerBase
     {
-        private readonly IRepository<Skill> _skillRepository;
-        private readonly IAdapter _adapter;
+        private readonly IRepository<SkillDto> _skillRepository;
+        private readonly IAdapter<SkillDto> _adapter;
         private readonly ILogger<SkillsController> _logger;
 
         public SkillsController(
-            IRepository<Skill> skillRepository,
-            IAdapter adapter,
+            IRepository<SkillDto> skillRepository,
+            IAdapter<SkillDto> adapter,
             ILogger<SkillsController> logger
         )
         {
@@ -36,13 +35,14 @@ namespace Skills.API.Controllers
             return Ok(result);
         }
 
-//        // POST /skills
-//        [HttpPost]
-//        public async Task<ActionResult<SkillList>> Save([FromBody] SkillDto content)
-//        {
-//            var result = _skillRepository.Save(content);
-//            _logger.LogInformation("Saved results: {@result}", result);
-//            return new JsonResult(result);
-//        }
+        // POST /skills
+        [HttpPost]
+        public async Task<ActionResult<SkillDto>> Save([FromBody] SkillDto content)
+        {
+            _logger.LogInformation("SkillsController: Preceding request");
+            var result = await _skillRepository.Save(content);
+            _logger.LogInformation("SkillsController: Saved results");
+            return new JsonResult(result);
+        }
     }
 }

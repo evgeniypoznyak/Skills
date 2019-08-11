@@ -1,13 +1,11 @@
-using System.Net;
+using System.Threading.Tasks;
 using Skills.Domain.Dto;
-using Skills.Domain.Entity;
-using Skills.ValueObject;
 
 namespace Skills.Domain.Repository
 {
-    public interface IRepository<T> where T : IEntity
+    public interface IRepository<T> where T : ISkillDto
     {
-        T Find(string id);
-        HttpStatusCode Save(SkillDto skillDto);
+        Task<T> Find(string id);
+        Task<T> Save(SkillDto skillDto);
     }
 }

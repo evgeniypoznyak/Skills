@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using Skills.API.Controllers;
-using Skills.Domain.Aggregate;
 using Skills.Domain.Dto;
 using Skills.Domain.Repository;
 using Skills.Infrastructure.Adapter;
@@ -17,15 +16,15 @@ namespace Skills.Tests.API.Controllers
     public class SkillsControllerTests
     {
         private readonly ITestOutputHelper _output;
-        private Mock<IRepository<Skill>> _mockRepository;
-        private Mock<IAdapter> _mockAdapter;
+        private Mock<IRepository<SkillDto>> _mockRepository;
+        private Mock<IAdapter<SkillDto>> _mockAdapter;
         private Mock<ILogger<SkillsController>> _mockLogger;
 
         public SkillsControllerTests(ITestOutputHelper output)
         {
             _output = output;
-            _mockRepository = new Mock<IRepository<Skill>>();
-            _mockAdapter = new Mock<IAdapter>();
+            _mockRepository = new Mock<IRepository<SkillDto>>();
+            _mockAdapter = new Mock<IAdapter<SkillDto>>();
             _mockLogger = new Mock<ILogger<SkillsController>>();
         }
 
@@ -39,6 +38,19 @@ namespace Skills.Tests.API.Controllers
             var controller = new SkillsController(_mockRepository.Object, _mockAdapter.Object, _mockLogger.Object);
             var actual = await controller.Find();
             Assert.IsAssignableFrom<ActionResult<SkillListDto>>(actual);
+            Assert.Contains(expected, JsonConvert.SerializeObject(actual));
+        }
+        
+        [Fact]
+        public async Task Save_WhenCalled_ShouldWork()
+        {
+            var expected = "1234567890";
+            var skillDto = new SkillDto {Id = expected};
+//            _mockAdapter.Setup(_ => _.Save(It.IsAny<SkillDto>())).Returns(Task.FromResult(skillDto));
+            _mockRepository.Setup(_ => _.Save(It.IsAny<SkillDto>())).Returns(Task.FromResult(skillDto));
+            var controller = new SkillsController(_mockRepository.Object, _mockAdapter.Object, _mockLogger.Object);
+            var actual = await controller.Save(skillDto);
+            Assert.IsAssignableFrom<ActionResult<SkillDto>>(actual);
             Assert.Contains(expected, JsonConvert.SerializeObject(actual));
         }
     }

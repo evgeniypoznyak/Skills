@@ -7,7 +7,7 @@ using Skills.Domain.Dto;
 
 namespace Skills.Infrastructure.Adapter.MongoDb
 {
-    public class MongoDbAdapter : IAdapter
+    public class MongoDbAdapter : IAdapter<SkillDto>
     {
         private readonly ILogger<MongoDbAdapter> _logger;
         private readonly string _databaseName = Environment.GetEnvironmentVariable("MONGO_SKILLS_DB_NAME");
@@ -29,6 +29,13 @@ namespace Skills.Infrastructure.Adapter.MongoDb
             var skillList = new SkillListDto {Skills = documents};
             _logger.LogInformation("Returning back skillList: {@skillList}", skillList);
             return skillList;
+        }
+
+        public async Task<SkillDto> Save(SkillDto skillDto)
+        {
+            _logger.LogInformation("MongoDbAdapter: Processing request from repository");
+            await _collection.InsertOneAsync(skillDto);
+            return skillDto;
         }
     }
 }

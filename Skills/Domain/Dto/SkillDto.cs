@@ -5,7 +5,7 @@ namespace Skills.Domain.Dto
 {
     [BsonIgnoreExtraElements]
     [BsonNoId]
-    public class SkillDto
+    public class SkillDto : ISkillDto
     {
         [JsonProperty("id")]
         [BsonElement("id")]
