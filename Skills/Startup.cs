@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -76,7 +75,21 @@ namespace Skills
                     new MongoClient(Environment.GetEnvironmentVariable("MONGO_SKILLS_DB")));
             services.AddSingleton<IAdapter<SkillDto>, MongoDbAdapter>();
             services.AddSingleton<IRepository<SkillDto>, SkillsRepository>();
-            //Swagger Configuration Setup
+            SetupSwaggerConfigurationForServices(services);
+        }
+
+        private void SetupEnvironmentVariables()
+        {
+//          if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER")) return;
+            if (Environment.GetEnvironmentVariable("IN_DOCKER") == "yes") return;
+            Environment.SetEnvironmentVariable("MONGO_LOGGING", Configuration["MongoDBCapped:Host"]);
+            Environment.SetEnvironmentVariable("MONGO_SKILLS_DB", Configuration["MongoDb:Host"]);
+            Environment.SetEnvironmentVariable("MONGO_SKILLS_DB_NAME", Configuration["MongoDb:DatabaseName"]);
+            Environment.SetEnvironmentVariable("MONGO_SKILLS_COLLECTION", Configuration["MongoDb:CollectionName"]);
+        }
+
+        private void SetupSwaggerConfigurationForServices(IServiceCollection services)
+        {
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -101,17 +114,7 @@ namespace Skills
                     Description = "This is the Skills Health API.",
                     Contact = new Contact {Email = "evgeniy.poznyak@gmail.com"},
                 });
-//                c.IncludeXmlComments(Path.Combine(System.AppContext.BaseDirectory, "SkillApi.xml"));
             });
-        }
-
-        private void SetupEnvironmentVariables()
-        {
-            if (Environment.GetEnvironmentVariable("IN_DOCKER") == "yes") return;
-            Environment.SetEnvironmentVariable("MONGO_LOGGING", Configuration["MongoDBCapped:Host"]);
-            Environment.SetEnvironmentVariable("MONGO_SKILLS_DB", Configuration["MongoDb:Host"]);
-            Environment.SetEnvironmentVariable("MONGO_SKILLS_DB_NAME", Configuration["MongoDb:DatabaseName"]);
-            Environment.SetEnvironmentVariable("MONGO_SKILLS_COLLECTION", Configuration["MongoDb:CollectionName"]);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -129,10 +132,9 @@ namespace Skills
             app.UseMvc();
             app.UseHealthChecks("/health");
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skill Microservice API V1");
-            });
+            app.UseSwaggerUI(
+                c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Skill Microservice API V1"); }
+            );
             app.Run(async context => await NotFoundMiddleware.Process(context));
         }
     }
