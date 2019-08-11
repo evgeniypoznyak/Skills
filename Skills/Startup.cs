@@ -65,12 +65,6 @@ namespace Skills
                 )
                 .CreateLogger();
 
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-//                mc.AddProfile(new SkillModelToDtoProfile());
-            });
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
             services.AddHealthChecks();
             services.AddMvc()
                 .AddJsonOptions(options => options.UseCamelCasing(true))

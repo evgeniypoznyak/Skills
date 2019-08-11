@@ -17,7 +17,6 @@ namespace Skills.Tests.Domain.Repository
     {
         private readonly ITestOutputHelper _output;
         private Mock<IAdapter<SkillDto>> _mockAdapter;
-        private Mock<IMapper> _mockMapper;
         private Mock<ILogger<SkillsRepository>> _mockLogger;
 
         public SkillsRepositoryTests(ITestOutputHelper output)
@@ -25,7 +24,6 @@ namespace Skills.Tests.Domain.Repository
             _output = output;
             _mockAdapter = new Mock<IAdapter<SkillDto>>();
             _mockLogger = new Mock<ILogger<SkillsRepository>>();
-            _mockMapper = new Mock<IMapper>();
         }
 
         [Fact]
@@ -34,7 +32,7 @@ namespace Skills.Tests.Domain.Repository
             var expected = "1234567890";
             var skillDto = new SkillDto {Id = expected};
             _mockAdapter.Setup(_ => _.Save(It.IsAny<SkillDto>())).Returns(Task.FromResult(skillDto));
-            var repository = new SkillsRepository(_mockAdapter.Object, _mockMapper.Object, _mockLogger.Object);
+            var repository = new SkillsRepository(_mockAdapter.Object, _mockLogger.Object);
             var actual = await repository.Save(skillDto);
             Assert.IsAssignableFrom<SkillDto>(actual);
             Assert.Equal(expected, actual.Id);
@@ -46,7 +44,7 @@ namespace Skills.Tests.Domain.Repository
             var expected = "1234567890";
             var skillDto = new SkillDto {Id = expected};
             _mockAdapter.Setup(_ => _.Update(It.IsAny<SkillDto>())).Returns(Task.FromResult(skillDto));
-            var repository = new SkillsRepository(_mockAdapter.Object, _mockMapper.Object, _mockLogger.Object);
+            var repository = new SkillsRepository(_mockAdapter.Object, _mockLogger.Object);
             var actual = await repository.Update(skillDto);
             Assert.IsAssignableFrom<SkillDto>(actual);
             Assert.Equal(expected, actual.Id);
@@ -58,7 +56,7 @@ namespace Skills.Tests.Domain.Repository
             _mockAdapter.Setup(
                 _ => _.Delete(It.IsAny<string>())).Returns(Task.FromResult(HttpStatusCode.NoContent)
             );
-            var repository = new SkillsRepository(_mockAdapter.Object, _mockMapper.Object, _mockLogger.Object);
+            var repository = new SkillsRepository(_mockAdapter.Object, _mockLogger.Object);
             var actual = await repository.Delete("");
             Assert.IsAssignableFrom<HttpStatusCode>(actual);
             Assert.Contains(

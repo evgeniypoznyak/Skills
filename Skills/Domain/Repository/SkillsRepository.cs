@@ -1,6 +1,5 @@
 using System.Net;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Skills.Domain.Dto;
 using Skills.Infrastructure.Adapter;
@@ -10,13 +9,11 @@ namespace Skills.Domain.Repository
     public class SkillsRepository: IRepository<SkillDto>
     {
         private readonly IAdapter<SkillDto> _adapter;
-        private readonly IMapper _mapper;
         private readonly ILogger<SkillsRepository> _logger;
 
-        public SkillsRepository(IAdapter<SkillDto> adapter, IMapper mapper,  ILogger<SkillsRepository> logger)
+        public SkillsRepository(IAdapter<SkillDto> adapter, ILogger<SkillsRepository> logger)
         {
             _adapter = adapter;
-            _mapper = mapper;
             _logger = logger;
         }
 
