@@ -46,10 +46,21 @@ namespace Skills.Tests.API.Controllers
         {
             var expected = "1234567890";
             var skillDto = new SkillDto {Id = expected};
-//            _mockAdapter.Setup(_ => _.Save(It.IsAny<SkillDto>())).Returns(Task.FromResult(skillDto));
             _mockRepository.Setup(_ => _.Save(It.IsAny<SkillDto>())).Returns(Task.FromResult(skillDto));
             var controller = new SkillsController(_mockRepository.Object, _mockAdapter.Object, _mockLogger.Object);
             var actual = await controller.Save(skillDto);
+            Assert.IsAssignableFrom<ActionResult<SkillDto>>(actual);
+            Assert.Contains(expected, JsonConvert.SerializeObject(actual));
+        } 
+        
+        [Fact]
+        public async Task Update_WhenCalled_ShouldWork()
+        {
+            var expected = "1234567890";
+            var skillDto = new SkillDto {Id = expected};
+            _mockRepository.Setup(_ => _.Update(It.IsAny<SkillDto>())).Returns(Task.FromResult(skillDto));
+            var controller = new SkillsController(_mockRepository.Object, _mockAdapter.Object, _mockLogger.Object);
+            var actual = await controller.Update(skillDto);
             Assert.IsAssignableFrom<ActionResult<SkillDto>>(actual);
             Assert.Contains(expected, JsonConvert.SerializeObject(actual));
         }

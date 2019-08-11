@@ -7,5 +7,6 @@ namespace Skills.Domain.Repository
     {
         Task<T> Find(string id);
         Task<T> Save(SkillDto skillDto);
+        Task<T> Update(SkillDto skillDto);
     }
 }

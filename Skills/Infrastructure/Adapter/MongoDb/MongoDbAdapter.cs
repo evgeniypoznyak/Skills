@@ -37,5 +37,12 @@ namespace Skills.Infrastructure.Adapter.MongoDb
             await _collection.InsertOneAsync(skillDto);
             return skillDto;
         }
+        
+        public async Task<SkillDto> Update(SkillDto skillDto)
+        {
+            _logger.LogInformation("MongoDbAdapter: Processing request from repository");
+            await _collection.ReplaceOneAsync(_ => _.Id == skillDto.Id, skillDto);
+            return skillDto;
+        }
     }
 }

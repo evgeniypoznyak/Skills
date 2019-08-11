@@ -28,5 +28,10 @@ namespace Skills.Domain.Repository
         {
             return await _adapter.Save(skillDto);
         }
+        
+        public async Task<SkillDto> Update(SkillDto skillDto)
+        {
+            return await _adapter.Update(skillDto);
+        }
     }
 }

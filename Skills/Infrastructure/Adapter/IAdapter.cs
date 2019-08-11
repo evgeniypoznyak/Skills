@@ -7,5 +7,6 @@ namespace Skills.Infrastructure.Adapter
     {
         Task<SkillListDto> FindAll();
         Task<T> Save(T skillDto);
+        Task<T> Update(T skillDto);
     }
 }

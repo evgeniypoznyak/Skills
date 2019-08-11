@@ -44,5 +44,15 @@ namespace Skills.API.Controllers
             _logger.LogInformation("SkillsController: Saved results");
             return new JsonResult(result);
         }
+        
+        // PATCH /skills
+        [HttpPatch]
+        public async Task<ActionResult<SkillDto>> Update([FromBody] SkillDto content)
+        {
+            _logger.LogInformation("SkillsController: Preceding request");
+            var result = await _skillRepository.Update(content);
+            _logger.LogInformation("SkillsController: Updated results");
+            return new JsonResult(result);
+        }
     }
 }
