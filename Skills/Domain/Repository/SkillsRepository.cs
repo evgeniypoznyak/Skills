@@ -10,6 +10,7 @@ namespace Skills.Domain.Repository
     {
         private readonly IAdapter<SkillDto> _adapter;
         private readonly ILogger<SkillsRepository> _logger;
+        private IRepository<SkillDto> _repositoryImplementation;
 
         public SkillsRepository(IAdapter<SkillDto> adapter, ILogger<SkillsRepository> logger)
         {
@@ -31,7 +32,12 @@ namespace Skills.Domain.Repository
         {
             return await _adapter.Update(skillDto);
         }
-        
+
+        public async Task<SkillListDto> Update(SkillListDto skillsDto)
+        {
+            return await _adapter.Update(skillsDto);
+        }
+
         public async Task<HttpStatusCode> Delete(string skillId)
         {
             return await _adapter.Delete(skillId);

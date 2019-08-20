@@ -79,5 +79,18 @@ namespace Skills.Tests.API.Controllers
                 ((int) HttpStatusCode.NoContent).ToString(), JsonConvert.SerializeObject(actual)
             );
         }
+
+        [Fact]
+        public async Task Update_WhenCalledWithListDto_ShouldWork()
+        {
+            var skillListDto = new SkillListDto();
+
+            _mockRepository.Setup(
+                    _ => _.Update( It.IsAny<SkillListDto>())
+                    ).Returns(Task.FromResult(skillListDto));
+            var controller = new SkillsController(_mockRepository.Object, _mockAdapter.Object, _mockLogger.Object);
+            var actual = await controller.Update(skillListDto);
+            Assert.IsAssignableFrom<ActionResult<SkillListDto>>(actual);
+        }
     }
 }

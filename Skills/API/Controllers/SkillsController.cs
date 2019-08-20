@@ -32,7 +32,7 @@ namespace Skills.API.Controllers
         public async Task<ActionResult<SkillListDto>> Find()
         {
             var result = await _adapter.FindAll();
-            _logger.LogInformation("Fetched results: {@result}", result);
+            _logger.LogInformation("Fetched results count: {@count}", result.Skills.Count);
             return Ok(result);
         }
 
@@ -45,7 +45,7 @@ namespace Skills.API.Controllers
             _logger.LogInformation("SkillsController: Saved results");
             return Ok(result);
         }
-        
+
         // PATCH /skills
         [HttpPatch]
         public async Task<ActionResult<SkillDto>> Update([FromBody] SkillDto content)
@@ -55,7 +55,17 @@ namespace Skills.API.Controllers
             _logger.LogInformation("SkillsController: Updated results");
             return Ok(result);
         }
-        
+
+        // PUT /skills
+        [HttpPut]
+        public async Task<ActionResult<SkillListDto>> Update([FromBody] SkillListDto content)
+        {
+            _logger.LogInformation("SkillsController: Preceding PUT request count:  {@count}", content.Skills.Count);
+            var result = await _skillRepository.Update(content);
+            _logger.LogInformation("SkillsController: Updated results count:  {@count}", result.Skills.Count);
+            return Ok(result);
+        }
+
         // DELETE /skills
         [HttpDelete("{skillId}")]
         public async Task<ActionResult<HttpStatusCode>> Delete(string skillId)

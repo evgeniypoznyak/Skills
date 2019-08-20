@@ -26,9 +26,9 @@ namespace Skills.Infrastructure.Adapter.MongoDb
         public async Task<SkillListDto> FindAll()
         {
             var documents = await _collection.Find(new BsonDocument()).ToListAsync();
-            _logger.LogInformation("FindAll documents: {@documents}", documents);
+            _logger.LogInformation("FindAll documents count: {@documents}", documents.Count);
             var skillList = new SkillListDto {Skills = documents};
-            _logger.LogInformation("Returning back skillList: {@skillList}", skillList);
+            _logger.LogInformation("Returning back skillList count: {@count}", skillList.Skills.Count);
             return skillList;
         }
 
@@ -44,6 +44,18 @@ namespace Skills.Infrastructure.Adapter.MongoDb
             _logger.LogInformation("MongoDbAdapter: Processing request from repository");
             await _collection.ReplaceOneAsync(_ => _.Id == skillDto.Id, skillDto);
             return skillDto;
+        }
+
+        public async Task<SkillListDto> Update(SkillListDto skillListDto)
+        {
+            var documents = await _collection.Find(new BsonDocument()).ToListAsync();
+            _logger.LogInformation("MongoDbAdapter: Processing request from repository");
+            foreach (SkillDto skillDto in documents)
+            {
+                await _collection.DeleteManyAsync(_ => _.Id == skillDto.Id);
+            }
+            await _collection.InsertManyAsync(skillListDto.Skills);
+            return skillListDto;
         }
 
         public async Task<HttpStatusCode> Delete(string skillId)

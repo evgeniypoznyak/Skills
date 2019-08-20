@@ -1,5 +1,5 @@
-# docker build -t evgeniy/dotnet-skills .
-# docker run -p 1111:80 -d --env-file ./.env --name evgeniy-dotnet-skills  --network evgeniy_poznyaks_com  evgeniy/dotnet-skills
+# docker build -t evgen1y/dotnet-skills .
+# docker run -p 1111:80 -d --env-file ./.env --name evgeniy-dotnet-skills  --network evgeniy_poznyaks_com  evgen1y/dotnet-skills
 
 FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app

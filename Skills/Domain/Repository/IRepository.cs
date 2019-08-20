@@ -9,6 +9,7 @@ namespace Skills.Domain.Repository
         Task<T> Find(string id);
         Task<T> Save(SkillDto skillDto);
         Task<T> Update(SkillDto skillDto);
+        Task<SkillListDto> Update(SkillListDto skillDto);
         Task<HttpStatusCode> Delete(string skillId);
     }
 }
